@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+  <gresource prefix="/me/acristoffers/remove-trash">
+    <file alias="version">${PROJECT_SOURCE_DIR}/resources/version</file>
+  </gresource>
+</gresources>

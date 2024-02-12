@@ -84,7 +84,8 @@ GString *bib_entry_print(BIBEntry *entry, gboolean bibtex) {
     gchar *key = k->data;
 
     if ((g_ascii_strcasecmp(key, "keywords") == 0) ||
-        (g_ascii_strcasecmp(key, "abstract") == 0)) {
+        (g_ascii_strcasecmp(key, "abstract") == 0) ||
+        (g_ascii_strcasecmp(key, "file") == 0)) {
       continue;
     }
 

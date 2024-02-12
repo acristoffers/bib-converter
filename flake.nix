@@ -1,5 +1,5 @@
 {
-  description = "Removes files like .DS_Store and Thumb.db from the disk";
+  description = "Converts between bibtex and biblatex.";
 
   inputs =
     {
@@ -34,10 +34,10 @@
       in
       rec {
         formatter = pkgs.nixpkgs-fmt;
-        packages.default = packages.remove-trash;
-        packages.remove-trash = pkgs.stdenv.mkDerivation
+        packages.default = packages.bib-converter;
+        packages.bib-converter = pkgs.stdenv.mkDerivation
           {
-            name = "remove-trash";
+            name = "bib-converter";
             version = (builtins.readFile ./resources/version);
             src = gitignoreSource ./.;
             nativeBuildInputs = with pkgs;[ cmake pkg-config ];
@@ -47,14 +47,14 @@
               "-DFETCHCONTENT_SOURCE_DIR_TREESITTER_BIBER=${tree-sitter-biber}"
             ];
             meta = {
-              description = "Removes files like .DS_Store and Thumb.db from the disk";
-              homepage = "https://github.com/acristoffers/remove-trash";
+              description = "Converts between bibtex and biblatex.";
+              homepage = "https://github.com/acristoffers/bib-converter";
               license = pkgs.lib.licenses.mpl20;
             };
           };
         apps = rec {
-          remove-trash = { type = "app"; program = "${packages.remove-trash}/bin/remove-trash"; };
-          default = remove-trash;
+          bib-converter = { type = "app"; program = "${packages.bib-converter}/bin/bib-converter"; };
+          default = bib-converter;
         };
         devShell = pkgs.mkShell {
           buildInputs = with pkgs;[ cmake pkg-config stdenv git busybox ] ++ buildInputs;

@@ -1,4 +1,5 @@
 #include "internal.h"
+#include <locale.h>
 
 static void printVersion(void) {
   static const gchar *path = "/me/acristoffers/remove-trash/version";
@@ -36,6 +37,8 @@ GString *file_read(const gchar *path, GError **error) {
 }
 
 int main(int argc, char **argv) {
+  setlocale(LC_ALL, "en_US.UTF-8");
+
   struct options options = parse_options(argc, argv);
 
   if (options.version) {

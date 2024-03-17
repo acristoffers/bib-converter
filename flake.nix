@@ -3,14 +3,14 @@
 
   inputs =
     {
-      nixpkgs.url = github:NixOS/nixpkgs/nixpkgs-unstable;
+      nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
-      flake-utils.url = github:numtide/flake-utils;
+      flake-utils.url = "github:numtide/flake-utils";
 
-      gitignore.url = github:hercules-ci/gitignore.nix;
+      gitignore.url = "github:hercules-ci/gitignore.nix";
       gitignore.inputs.nixpkgs.follows = "nixpkgs";
 
-      tree-sitter-biber.url = github:acristoffers/tree-sitter-biber;
+      tree-sitter-biber.url = "github:acristoffers/tree-sitter-biber";
       tree-sitter-biber.flake = false;
     };
 

@@ -95,6 +95,7 @@ GString *bib_entry_print(BIBEntry *entry, gboolean bibtex) {
   gsize max_length = 0;
   GList *keys = g_hash_table_get_keys(entry->properties);
   GList *printable_keys = NULL;
+  gboolean has_doi = false;
 
   for (GList *k = keys; k != NULL; k = k->next) {
     gchar *key = k->data;
@@ -105,6 +106,10 @@ GString *bib_entry_print(BIBEntry *entry, gboolean bibtex) {
       continue;
     }
 
+    if (g_ascii_strcasecmp(key, "doi") == 0) {
+      has_doi = true;
+    }
+
     max_length = MAX(strlen(key), max_length);
     printable_keys = g_list_append(printable_keys, key);
   }
@@ -112,6 +117,17 @@ GString *bib_entry_print(BIBEntry *entry, gboolean bibtex) {
   for (GList *k = printable_keys; k != NULL; k = k->next) {
     gchar *key = k->data;
     gchar *val = g_hash_table_lookup(entry->properties, key);
+
+    if (has_doi && (0 == g_ascii_strcasecmp(key, "issn") ||
+                    0 == g_ascii_strcasecmp(key, "isbn") ||
+                    0 == g_ascii_strcasecmp(key, "eprint") ||
+                    0 == g_ascii_strcasecmp(key, "eprintype") ||
+                    0 == g_ascii_strcasecmp(key, "eprintclass") ||
+                    0 == g_ascii_strcasecmp(key, "url") ||
+                    0 == g_ascii_strcasecmp(key, "urldate"))) {
+      continue;
+    }
+
     if (bibtex) {
       g_autofree gchar *bibtex_key = bib_entry_print_property(key);
       g_autoptr(GString) property = bib_property_print(bibtex_key, val, max_length, bibtex);
